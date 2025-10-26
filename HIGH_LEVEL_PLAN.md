@@ -8,35 +8,18 @@
 
 ## Dependency Tree Overview
 
-```
-Resume-Admin (Admin Frontend)
-├── DEPENDS ON: Resume-SSO (admin authentication with MFA)
-├── DEPENDS ON: Resume-Admin-API (all admin operations)
-│
-├── MVP-1: Admin Foundation ⟶ Blocks: All admin features
-│   ├── Admin Authentication with MFA
-│   ├── Dashboard Overview
-│   ├── User Management UI
-│   └── Template Management UI
-│
-├── MVP-2: Financial & Support UI ⟶ Blocks: Revenue and support management
-│   ├── Financial Dashboard
-│   ├── Payment Management UI
-│   ├── Coupon Management UI
-│   └── Support Ticket System UI
-│
-├── MVP-3: Content & System Management UI ⟶ Blocks: System operations
-│   ├── Content Management UI
-│   ├── Website Management UI
-│   ├── Feature Flag UI
-│   └── System Health Dashboard
-│
-└── MVP-4: Advanced Analytics & Automation UI ⟶ Blocks: Advanced features
-    ├── Custom Report Builder UI
-    ├── A/B Testing Dashboard
-    ├── AI Usage Analytics UI
-    └── Automation Workflows UI
-```
+Resume-Admin (Admin Dashboard - Web)
+├── DEPENDS ON: Resume-SSO (MVP-1.4: Login, MVP-4.3: MFA) → For admin authentication
+├── DEPENDS ON: Resume-Admin-API (All MVPs) → For all backend operations
+├── BLOCKS: None (this is an end-user application)
+
+External Dependencies:
+├── Resume-SSO (MVP-1.4: Login System) → For basic authentication
+├── Resume-SSO (MVP-4.3: MFA) → For admin-required MFA
+├── Resume-Admin-API (MVP-1: Admin Foundation) → For admin management, analytics
+├── Resume-Admin-API (MVP-2: Financial) → For billing, payments, support
+├── Resume-Admin-API (MVP-3: Content & System) → For content, websites, flags
+└── Resume-Admin-API (MVP-4: Advanced) → For reports, A/B testing, automation
 
 ---
 
@@ -833,24 +816,27 @@ Resume-Admin (Admin Frontend)
 
 ---
 
-## What Blocks What
+## Service Dependencies
 
-| This Epic | Blocks These Epics |
-|-----------|-------------------|
-| MVP-1.1 (Admin Auth) | All admin features |
-| MVP-1.2 (Dashboard) | All admin pages (shared layout) |
-| MVP-1.3 (User Management) | User-related features |
-| MVP-2.1 (Financial Dashboard) | Revenue and payment features |
-| MVP-2.4 (Support Tickets) | Customer support operations |
-| MVP-3.3 (Feature Flags) | Release management tools |
-| MVP-3.4 (System Health) | Operational monitoring |
+| Dependency Type | Service & MVP | Required For | Purpose |
+|-----------------|---------------|--------------|---------|
+| **Authentication** | Resume-SSO (MVP-1.4) | Epic 1.1: Admin Auth | Basic login functionality |
+| **MFA Security** | Resume-SSO (MVP-4.3) | Epic 1.1: Admin Auth | Multi-factor authentication for admins |
+| **Admin Operations** | Resume-Admin-API (MVP-1) | MVP-1: Admin Foundation | User management, analytics, templates |
+| **Financial Operations** | Resume-Admin-API (MVP-2) | MVP-2: Financial UI | Billing, payments, coupons, support |
+| **Content Management** | Resume-Admin-API (MVP-3) | MVP-3: Content UI | Content, websites, feature flags |
+| **Advanced Features** | Resume-Admin-API (MVP-4) | MVP-4: Advanced UI | Reports, A/B testing, automation |
 
-**External Dependencies**:
-- Resume-SSO (MVP-1.4: Login, MVP-4.3: MFA) ⟶ Blocks Epic 1.1 (Admin Authentication)
-- Resume-Admin-API (MVP-1: Admin Foundation) ⟶ Blocks MVP-1 (Admin Foundation UI)
-- Resume-Admin-API (MVP-2: Financial) ⟶ Blocks MVP-2 (Financial & Support UI)
-- Resume-Admin-API (MVP-3: Content & System) ⟶ Blocks MVP-3 (Content & System Management UI)
-- Resume-Admin-API (MVP-4: Advanced) ⟶ Blocks MVP-4 (Advanced Analytics & Automation UI)
+**Internal Component Dependencies**:
+| This Component | Required For | Reason |
+|----------------|--------------|---------|
+| MVP-1.1 (Admin Auth) | All admin features | Authentication required for access |
+| MVP-1.2 (Dashboard) | User experience | Primary landing page |
+| MVP-1.3 (User Management) | User operations | Core admin functionality |
+| MVP-2.1 (Financial Dashboard) | Revenue visibility | Financial overview required |
+| MVP-2.4 (Support Tickets) | Customer support | Support operations interface |
+| MVP-3.3 (Feature Flags) | Release management | Control feature rollouts |
+| MVP-3.4 (System Health) | Operational awareness | Monitor system status |
 
 ---
 
